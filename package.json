@@ -1,0 +1,21 @@
+{
+	"name": "@robindevouge/controls-manager",
+	"version": "1.0.0",
+	"description": "Keyboard and pointer events controller",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/robindevouge/controls-manager.git"
+	},
+	"main": "lib/index.js",
+	"types": "lib/index.d.ts",
+	"publishConfig": {
+		"registry": "https://npm.pkg.github.com/@robindevouge"
+	},
+	"scripts": {
+		"build": "tsc"
+	},
+	"devDependencies": {
+		"typescript": "^5.2.2"
+	}
+}
