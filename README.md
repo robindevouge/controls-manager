@@ -6,7 +6,7 @@ Keyboard and pointer events controller. Easily bind functions to keys and pointe
 
 Maintainer: Robin Devouge (hello@robindevouge.be)
 
-Repository: https://github.com/robindevouge/controls-manager
+Repository: https://github.com/robindevouge/controls-manager.git
 
 _Please do not request for additional features, this package was developed to suit my needs during projects (that is why this package is scoped instead of public). If you wish to customize it you are free to do so by respecting the attached license._
 
