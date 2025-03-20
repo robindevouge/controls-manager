@@ -1,14 +1,10 @@
 # @robindevouge/controls-manager
 
-![alt text](https://img.shields.io/badge/version-1.0.0-informational)
-
 ## About
-
-_Package created while I was working at [Hilarious](https://hilarious.be) then updated and expanded upon._
 
 Keyboard and pointer events controller. Easily bind functions to keys and pointer events via a mapping object.
 
-Maintainer: Robin (hello@robindevouge.be)
+Maintainer: Robin Devouge (hello@robindevouge.be)
 
 Repository: https://github.com/robindevouge/controls-manager
 
