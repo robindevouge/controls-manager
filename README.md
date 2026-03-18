@@ -4,7 +4,7 @@
 
 Keyboard and pointer events controller. Easily bind functions to keys and pointer events via a mapping object.
 
-Maintainer: Robin Devouge (hello@robindevouge.be)
+Maintainer: Robin Devouge (code@robindevouge.be)
 
 Repository: https://github.com/robindevouge/controls-manager.git
 
@@ -13,7 +13,7 @@ _Please do not request for additional features, this package was developed to su
 ## Install
 
 ```console
-npm install @robindevouge/controls-manager
+npm i https://github.com/robindevouge/controls-manager
 ```
 
 ## Usage
@@ -30,20 +30,20 @@ import ControlsManager from '@robindevouge/controls-manager';
 const controls = new ControlsManager(config);
 ```
 
-| Config                         | Type         | Default    | Description                              |
-| ------------------------------ | ------------ | ---------- | ---------------------------------------- |
-| **debug**                      | `boolean`    | `false`    | Whether to log debug info                |
-| **enabled**                    | `boolean`    | `true`     | Whether the controls are enabled on init |
-| **allowKeyRepeat**             | `boolean`    | `true`     | Whether to allow key repetition          |
-| **context**                    | `any`        | `null`     | Context to pass to the key actions       |
-| **keyMaps**                    | `array`      | `[]`       | Array of key maps                        |
-| **keyMaps.key**                | `string`     | -          | Key code of the key you want to listen   |
-| **keyMaps.actionDown**         | `function`   | `() => {}` | What happens on keydown                  |
-| **keyMaps.actionUp**           | `function`   | `() => {}` | What happens on keyup                    |
-| **pointerMaps**                | `array`      | `[]`       | Array of pointer maps                    |
-| **pointerMaps.element**        | `DOMElement` | -          | DOM element to bind the listener to      |
-| **pointerMaps.actionDown**     | `function`   | `() => {}` | What happens on pointer down             |
-| **pointerMaps.actionUp**       | `function`   | `() => {}` | What happens on pointer up               |
+| Config                         | Type         | Default    | Description                                 |
+| ------------------------------ | ------------ | ---------- | ------------------------------------------- |
+| **debug**                      | `boolean`    | `false`    | Log debug info |
+| **enabled**                    | `boolean`    | `true`     | Enable controls on init |
+| **allowKeyRepeat**             | `boolean`    | `true`     | Allow key event repetition when maintained pressed |
+| **context**                    | `any`        | `null`     | Context to pass to the key actions |
+| **keyMaps**                    | `array`      | `[]`       | Array of objects defining what happens when a key is pressed |
+| **keyMaps.key**                | `string`     | -          | Key code (event.code) of the key you want to listen |
+| **keyMaps.actionDown**         | `function`   | `() => {}` | Bind a function to the 'keydown' event |
+| **keyMaps.actionUp**           | `function`   | `() => {}` | Bind a function to the 'keyup' event |
+| **pointerMaps**                | `array`      | `[]`       | Array of objects defining what happens when a DOM element is clicked |
+| **pointerMaps.element**        | `DOMElement` | -          | DOM element to bind the listener to |
+| **pointerMaps.actionDown**     | `function`   | `() => {}` | Bind a function to the 'pointerdown' event |
+| **pointerMaps.actionUp**       | `function`   | `() => {}` | Bind a function to the 'pointerup' event |
 | **pointerMaps.preventDefault** | `boolean`    | `false`    | Call preventDefault on the pointer event |
 
 ## Examples
@@ -57,13 +57,16 @@ const controls = new ControlsManager({
 		{
 			key: 'ArrowLeft',
 			actionDown: () => {
-				Game.move('left');
+				// Do something when the left arrow key is pressed
+			},
+			actionUp: () => {
+				// Do something when the left arrow key is released
 			},
 		},
 		{
 			key: 'ArrowRight',
 			actionDown: () => {
-				Game.move('right');
+				// Do something when the right arrow key is pressed
 			},
 		},
 	],
@@ -71,13 +74,13 @@ const controls = new ControlsManager({
 		{
 			element: $btnLeft,
 			actionUp: () => {
-				Game.move('left');
+				// Do something when the pointer is released
 			},
 		},
 		{
 			element: $btnRight,
-			actionUp: () => {
-				Game.move('right');
+			actionDown: () => {
+				// Do something when the pointer is pressed
 			},
 		},
 	],

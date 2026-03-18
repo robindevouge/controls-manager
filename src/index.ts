@@ -23,18 +23,18 @@ interface ControlsManagerConfig {
 export default class ControlsManager {
 	/**
 	 * @param {object} config
-	 * @param {boolean} [config.debug=false] - Whether to log debug info - false
-	 * @param {boolean} [config.enabled=true] - Whether the controls are enabled on init - true
-	 * @param {boolean} [config.allowKeyRepeat=false] - Whether to allow key repetition - false
+	 * @param {boolean} [config.debug=false] - Log debug info - false
+	 * @param {boolean} [config.enabled=true] - Enable controls on init - true
+	 * @param {boolean} [config.allowKeyRepeat=false] - Allow key event repetition when maintained pressed - false
 	 * @param {object} [config.context=null] - Context to pass to the key actions
 	 * @param {object[]} [config.keyMaps] - Array of objects defining what happens when a key is pressed
-	 * @param {string} config.keyMaps[].key - Key code of the key you want to listen
-	 * @param {function} config.keyMaps[].actionDown - What happens on keydown
-	 * @param {function} config.keyMaps[].actionUp - What happens on keyup
+	 * @param {string} config.keyMaps[].key - Key code (event.code) of the key you want to listen
+	 * @param {function} config.keyMaps[].actionDown - Bind a function to the 'keydown' event
+	 * @param {function} config.keyMaps[].actionUp - Bind a function to the 'keyup' event
 	 * @param {object[]} [config.pointerMaps] - Array of objects defining what happens when a DOM element is clicked
 	 * @param {DOMElement} config.pointerMaps[].element - DOM element to bind the listener to
-	 * @param {function} config.pointerMaps[].actionDown - What happens on pointer down
-	 * @param {function} config.pointerMaps[].actionUp - What happens on pointer up
+	 * @param {function} config.pointerMaps[].actionDown - Bind a function to the 'pointerdown' event
+	 * @param {function} config.pointerMaps[].actionUp - Bind a function to the 'pointerup' event
 	 * @param {function} [config.pointerMaps[].preventDefault=false] - Call preventDefault on the pointer event - false
 	 */
 
