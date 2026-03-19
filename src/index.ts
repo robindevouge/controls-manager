@@ -1,5 +1,6 @@
 interface KeyMap {
 	key: string;
+	allowRepeat?: boolean;
 	actionDown?: (context: any) => void;
 	actionUp?: (context: any) => void;
 }
@@ -14,7 +15,6 @@ interface PointerMap {
 interface ControlsManagerConfig {
 	debug?: boolean;
 	enabled?: boolean;
-	allowKeyRepeat?: boolean;
 	context?: any;
 	keyMaps?: KeyMap[] | [];
 	pointerMaps?: PointerMap[] | [];
@@ -25,13 +25,13 @@ export default class ControlsManager {
 	 * @param {object} config
 	 * @param {boolean} [config.debug=false] - Log debug info - false
 	 * @param {boolean} [config.enabled=true] - Enable controls on init - true
-	 * @param {boolean} [config.allowKeyRepeat=false] - Allow key event repetition when maintained pressed - false
 	 * @param {object} [config.context=null] - Context to pass to the key actions
-	 * @param {object[]} [config.keyMaps] - Array of objects defining what happens when a key is pressed
-	 * @param {string} config.keyMaps[].key - Key code (event.code) of the key you want to listen
+	 * @param {object[]} [config.keyMaps] - Array of keybinds
+	 * @param {string} config.keyMaps[].key - `event.code` of the key you want to bind
+	 * @param {boolean} [config.keyMaps[].allowRepeat=false] - Allow event repetition when maintained pressed - false
 	 * @param {function} config.keyMaps[].actionDown - Bind a function to the 'keydown' event
 	 * @param {function} config.keyMaps[].actionUp - Bind a function to the 'keyup' event
-	 * @param {object[]} [config.pointerMaps] - Array of objects defining what happens when a DOM element is clicked
+	 * @param {object[]} [config.pointerMaps] - Array of DOM elements click/touch binds
 	 * @param {DOMElement} config.pointerMaps[].element - DOM element to bind the listener to
 	 * @param {function} config.pointerMaps[].actionDown - Bind a function to the 'pointerdown' event
 	 * @param {function} config.pointerMaps[].actionUp - Bind a function to the 'pointerup' event
@@ -40,19 +40,23 @@ export default class ControlsManager {
 
 	debug = false;
 	enabled = true;
-	allowKeyRepeat = false;
 	keyMaps: KeyMap[] = [];
 	pointerMaps: PointerMap[] = [];
 	context: any = null;
 	keysDown: string[] = [];
 
-	constructor({ keyMaps = [], pointerMaps = [], debug = false, enabled = true, context = null, allowKeyRepeat = false }: ControlsManagerConfig) {
+	constructor({
+		keyMaps = [],
+		pointerMaps = [],
+		debug = false,
+		enabled = true,
+		context = null,
+	}: ControlsManagerConfig) {
 		this.keyMaps = keyMaps;
 		this.pointerMaps = pointerMaps;
 		this.debug = debug;
 		this.enabled = enabled;
 		this.context = context;
-		this.allowKeyRepeat = allowKeyRepeat;
 		this.keysDown = [];
 
 		document.addEventListener('keydown', (ev) => {
@@ -62,8 +66,8 @@ export default class ControlsManager {
 				if (!this.enabled) return;
 				if (keyConfig.key === ev.code) {
 					// prevent key repetition if not allowed
-					if (!this.allowKeyRepeat && this.keysDown.includes(ev.code)) return;
-					if (!this.allowKeyRepeat) this.keysDown.push(ev.code);
+					if (!keyConfig.allowRepeat && this.keysDown.includes(ev.code)) return;
+					if (!keyConfig.allowRepeat) this.keysDown.push(ev.code);
 
 					// do the thing
 					if (keyConfig.actionDown) {
@@ -81,7 +85,7 @@ export default class ControlsManager {
 			for (const keyConfig of this.keyMaps) {
 				if (keyConfig.key === ev.code) {
 					// remove key from list of down keys
-					if (!this.allowKeyRepeat) this.keysDown = this.keysDown.filter((key) => key !== ev.code);
+					if (!keyConfig.allowRepeat) this.keysDown = this.keysDown.filter((key) => key !== ev.code);
 
 					if (!this.enabled) return;
 					// do the thing

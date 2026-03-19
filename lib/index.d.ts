@@ -1,5 +1,6 @@
 interface KeyMap {
     key: string;
+    allowRepeat?: boolean;
     actionDown?: (context: any) => void;
     actionUp?: (context: any) => void;
 }
@@ -12,7 +13,6 @@ interface PointerMap {
 interface ControlsManagerConfig {
     debug?: boolean;
     enabled?: boolean;
-    allowKeyRepeat?: boolean;
     context?: any;
     keyMaps?: KeyMap[] | [];
     pointerMaps?: PointerMap[] | [];
@@ -20,27 +20,26 @@ interface ControlsManagerConfig {
 export default class ControlsManager {
     /**
      * @param {object} config
-     * @param {boolean} [config.debug=false] - Whether to log debug info - false
-     * @param {boolean} [config.enabled=true] - Whether the controls are enabled on init - true
-     * @param {boolean} [config.allowKeyRepeat=false] - Whether to allow key repetition - false
+     * @param {boolean} [config.debug=false] - Log debug info - false
+     * @param {boolean} [config.enabled=true] - Enable controls on init - true
      * @param {object} [config.context=null] - Context to pass to the key actions
-     * @param {object[]} [config.keyMaps] - Array of objects defining what happens when a key is pressed
-     * @param {string} config.keyMaps[].key - Key code of the key you want to listen
-     * @param {function} config.keyMaps[].actionDown - What happens on keydown
-     * @param {function} config.keyMaps[].actionUp - What happens on keyup
-     * @param {object[]} [config.pointerMaps] - Array of objects defining what happens when a DOM element is clicked
+     * @param {object[]} [config.keyMaps] - Array of keybinds
+     * @param {string} config.keyMaps[].key - `event.code` of the key you want to bind
+     * @param {boolean} [config.keyMaps[].allowRepeat=false] - Allow event repetition when maintained pressed - false
+     * @param {function} config.keyMaps[].actionDown - Bind a function to the 'keydown' event
+     * @param {function} config.keyMaps[].actionUp - Bind a function to the 'keyup' event
+     * @param {object[]} [config.pointerMaps] - Array of DOM elements click/touch binds
      * @param {DOMElement} config.pointerMaps[].element - DOM element to bind the listener to
-     * @param {function} config.pointerMaps[].actionDown - What happens on pointer down
-     * @param {function} config.pointerMaps[].actionUp - What happens on pointer up
+     * @param {function} config.pointerMaps[].actionDown - Bind a function to the 'pointerdown' event
+     * @param {function} config.pointerMaps[].actionUp - Bind a function to the 'pointerup' event
      * @param {function} [config.pointerMaps[].preventDefault=false] - Call preventDefault on the pointer event - false
      */
     debug: boolean;
     enabled: boolean;
-    allowKeyRepeat: boolean;
     keyMaps: KeyMap[];
     pointerMaps: PointerMap[];
     context: any;
     keysDown: string[];
-    constructor({ keyMaps, pointerMaps, debug, enabled, context, allowKeyRepeat }: ControlsManagerConfig);
+    constructor({ keyMaps, pointerMaps, debug, enabled, context, }: ControlsManagerConfig);
 }
 export {};

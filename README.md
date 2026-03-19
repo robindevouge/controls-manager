@@ -30,21 +30,21 @@ import ControlsManager from '@robindevouge/controls-manager';
 const controls = new ControlsManager(config);
 ```
 
-| Config                         | Type         | Default    | Description                                 |
-| ------------------------------ | ------------ | ---------- | ------------------------------------------- |
-| **debug**                      | `boolean`    | `false`    | Log debug info |
-| **enabled**                    | `boolean`    | `true`     | Enable controls on init |
-| **allowKeyRepeat**             | `boolean`    | `true`     | Allow key event repetition when maintained pressed |
-| **context**                    | `any`        | `null`     | Context to pass to the key actions |
-| **keyMaps**                    | `array`      | `[]`       | Array of objects defining what happens when a key is pressed |
-| **keyMaps.key**                | `string`     | -          | Key code (event.code) of the key you want to listen |
-| **keyMaps.actionDown**         | `function`   | `() => {}` | Bind a function to the 'keydown' event |
-| **keyMaps.actionUp**           | `function`   | `() => {}` | Bind a function to the 'keyup' event |
-| **pointerMaps**                | `array`      | `[]`       | Array of objects defining what happens when a DOM element is clicked |
-| **pointerMaps.element**        | `DOMElement` | -          | DOM element to bind the listener to |
-| **pointerMaps.actionDown**     | `function`   | `() => {}` | Bind a function to the 'pointerdown' event |
-| **pointerMaps.actionUp**       | `function`   | `() => {}` | Bind a function to the 'pointerup' event |
-| **pointerMaps.preventDefault** | `boolean`    | `false`    | Call preventDefault on the pointer event |
+| Config                            | Type         | Default | Description                                 |
+| --------------------------------- | ------------ | ------- | ------------------------------------------- |
+| **debug**                         | `boolean`    | `false` | Log debug info |
+| **enabled**                       | `boolean`    | `true`  | Enable controls on init |
+| **context**                       | `any`        | `null`  | Context to pass to the key actions |
+| **keyMaps**                       | `array`      | -       | Array of keybinds |
+| **keyMaps.key** (required)        | `string`     | -       | `event.code` of the key you want to bind |
+| **keyMaps.allowRepeat**           | `boolean`    | `false` | Allow event repetition when maintained pressed |
+| **keyMaps.actionDown**            | `function`   | -       | Bind a function to the 'keydown' event |
+| **keyMaps.actionUp**              | `function`   | -       | Bind a function to the 'keyup' event |
+| **pointerMaps**                   | `array`      | -       | Array of DOM elements click/touch binds |
+| **pointerMaps.element** (required)| `DOMElement` | -       | DOM element to bind the listener to |
+| **pointerMaps.preventDefault**    | `boolean`    | `false` | Call preventDefault on the pointer event |
+| **pointerMaps.actionDown**        | `function`   | -       | Bind a function to the 'pointerdown' event |
+| **pointerMaps.actionUp**          | `function`   | -       | Bind a function to the 'pointerup' event |
 
 ## Examples
 
